@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager pager;
     List<PageModel> pageModels = new ArrayList<>();
+    private int mCurrItem = 4;
 
     {
         pageModels.add(new PageModel(R.layout.sample_clip_rect, R.string.title_clip_rect, R.layout.practice_clip_rect));
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(pager);
+        pager.setCurrentItem(mCurrItem);
     }
 
     @Override

@@ -38,7 +38,22 @@ public class Practice06SkewView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        //看app\src\main\java\com\hencoder\hencoderpracticedraw4\skew.png 图片，
+        // 红色的x和y表示倾斜的角度，下面是x，上面是y 。参数正数为顺时针，参数负数为逆时针
+        //ps: 例如，将一个正方形放到x/y坐标轴中，原点和坐标(0,0)重合
+        //正方形的左边线条和y轴所成的角度，就是参数sx在x方向上的错切系数；
+        //正方形的上边线条和x轴所成的角度，就是参数sy在y方向上的错切系数；
+        //整数为顺时针，负数为逆时针
+
+        canvas.save();
+        canvas.skew(0 , 0.5f);
         canvas.drawBitmap(bitmap, point1.x, point1.y, paint);
+        canvas.restore();
+
+        canvas.save();
+        canvas.skew(-0.5f, 0);
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
+        canvas.restore();
+
     }
 }

@@ -64,6 +64,7 @@ public class Sample12CameraRotateFixedView extends View {
         camera.save();
         matrix.reset();
         camera.rotateY(30);
+        //camera.rotateY(-30);
         camera.getMatrix(matrix);
         camera.restore();
         matrix.preTranslate(-center2X, -center2Y);

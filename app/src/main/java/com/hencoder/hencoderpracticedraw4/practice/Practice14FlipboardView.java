@@ -20,7 +20,8 @@ public class Practice14FlipboardView extends View {
     Bitmap bitmap;
     Camera camera = new Camera();
     int degree;
-    ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 0, 180);
+    String animatorVal = "degree";
+    ObjectAnimator animator = ObjectAnimator.ofInt(this, animatorVal, 0, 180);
 
     public Practice14FlipboardView(Context context) {
         super(context);
@@ -36,6 +37,9 @@ public class Practice14FlipboardView extends View {
 
     {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.maps);
+        /*Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth() * 2, bitmap.getHeight() * 2, true);
+        bitmap.recycle();
+        bitmap = scaledBitmap;*/
 
         animator.setDuration(2500);
         animator.setInterpolator(new LinearInterpolator());
@@ -72,7 +76,20 @@ public class Practice14FlipboardView extends View {
         int x = centerX - bitmapWidth / 2;
         int y = centerY - bitmapHeight / 2;
 
+        //绘制 上半部分
         canvas.save();
+        canvas.clipRect(0, 0, getWidth(), centerY);
+        canvas.drawBitmap(bitmap, x, y, paint);
+        canvas.restore();
+
+        //绘制 下半部分
+        canvas.save();
+        //canvas.clipRect(0, centerY, getWidth(), getHeight());
+        if(degree < 90){
+            canvas.clipRect(0, centerY, getWidth(), getHeight());
+        }else{
+            canvas.clipRect(0, 0, getWidth(), centerY); //如果少了这个，后半部分的动画就没有翻页的效果
+        }
 
         camera.save();
         camera.rotateX(degree);

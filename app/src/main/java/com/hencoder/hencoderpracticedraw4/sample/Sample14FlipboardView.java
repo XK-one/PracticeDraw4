@@ -10,12 +10,16 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.hencoder.hencoderpracticedraw4.R;
 
 public class Sample14FlipboardView extends View {
+
+    String mTag = this.getClass().getSimpleName();
+
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
     Camera camera = new Camera();
@@ -72,6 +76,8 @@ public class Sample14FlipboardView extends View {
         int x = centerX - bitmapWidth / 2;
         int y = centerY - bitmapHeight / 2;
 
+        //Log.i(mTag, "x ==" + x + ",y==" + y);
+
         // 第一遍绘制：上半部分
         canvas.save();
         canvas.clipRect(0, 0, getWidth(), centerY);
@@ -80,6 +86,8 @@ public class Sample14FlipboardView extends View {
 
         // 第二遍绘制：下半部分
         canvas.save();
+
+
 
         if (degree < 90) {
             canvas.clipRect(0, centerY, getWidth(), getHeight());

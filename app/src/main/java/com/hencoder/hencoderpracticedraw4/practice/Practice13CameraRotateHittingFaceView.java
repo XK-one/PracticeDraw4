@@ -11,20 +11,27 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Nullable;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import com.hencoder.hencoderpracticedraw4.R;
 
 public class Practice13CameraRotateHittingFaceView extends View {
+    String mTag = this.getClass().getSimpleName();
+
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
     Point point = new Point(200, 50);
     Camera camera = new Camera();
     Matrix matrix = new Matrix();
     int degree;
-    ObjectAnimator animator = ObjectAnimator.ofInt(this, "degree", 0, 360);
+    String animatorVal = "degree";
+    ObjectAnimator animator = ObjectAnimator.ofInt(this, animatorVal, 0, 360);
+
 
     public Practice13CameraRotateHittingFaceView(Context context) {
         super(context);
@@ -47,6 +54,12 @@ public class Practice13CameraRotateHittingFaceView extends View {
         animator.setDuration(5000);
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(ValueAnimator.INFINITE);
+        //animator.setRepeatMode(ValueAnimator.REVERSE); //默认RESTART
+
+        //setLocation() 方法来把相机往后移动，修复「糊脸」效果
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        float newZ = displayMetrics.density * 6;
+        camera.setLocation(0,0,newZ);
     }
 
     @Override
@@ -63,6 +76,7 @@ public class Practice13CameraRotateHittingFaceView extends View {
 
     @SuppressWarnings("unused")
     public void setDegree(int degree) {
+        //Log.i(mTag,"setDegree==" + degree);
         this.degree = degree;
         invalidate();
     }

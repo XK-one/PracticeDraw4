@@ -38,6 +38,14 @@ public class Practice01ClipRectView extends View {
         int left = (getWidth() - bitmap.getWidth()) / 2;
         int top = (getHeight() - bitmap.getHeight()) / 2;
 
-        canvas.drawBitmap(bitmap, left, top, paint);
+        /*canvas.save();
+        canvas.clipRect(left + 50,top + 50, left + 100, top + 100);//clipRect用于裁切画布的范围,绘制时~ 只显示这个范围的
+        canvas.drawBitmap(bitmap, left+50, top+50, paint);  //drawBitmap里的参数left、top是指定绘制 **Bitmap** 的起始位置
+        canvas.restore();*/
+
+        canvas.save();
+        canvas.clipRect(left + 50,top + 50 , left + 300, top + 200);  //裁切
+        canvas.drawBitmap(bitmap, left, top, paint);//这里的left、top是指定绘制 **Bitmap** 的起始位置
+        canvas.restore();
     }
 }

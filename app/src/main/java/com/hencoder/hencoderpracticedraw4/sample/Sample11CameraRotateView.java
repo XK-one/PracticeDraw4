@@ -55,5 +55,6 @@ public class Sample11CameraRotateView extends View {
         camera.restore();
         canvas.drawBitmap(bitmap, point2.x, point2.y, paint);
         canvas.restore();
+
     }
 }
